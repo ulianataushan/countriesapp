@@ -1,46 +1,55 @@
-# Getting Started with Create React App
+# Frontend React Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is your final project for the frontend module
 
-## Available Scripts
+## Instructions
 
-In the project directory, you can run:
+### General
 
-### `npm start`
+Fork this repo, then clone the **fork** to your machine and start working on it. You can open a pull request as soon as possible (no need to wait until finished)
+For styling, you can use whatever css solution you want: css, scss, Material UI, etc.
+You need to install the css library yourself.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Step 1
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Fetch all the countries and return the data from [countries APIs](https://restcountries.com/). Display the data on the screen
 
-### `npm test`
+- Given a country name as argument, returns the data about that country from [countries APIs](https://restcountries.com/).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Step 2
 
-### `npm run build`
+- Render the data of all the countries (from Step 1) in a table, you can use html table tag, or component library like Material UI
+- Make sure to split the table into smaller components: `TableHead`, `TableBody`, `TableRow`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Step 3
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Integrate react router into your project and create 2 pages: `home`, and `country`
+- Homepage will contain the countries table that we created above
+- Country page will render the data about one specific country only
+- When a user click on the name of the country in the table, they will be routed to the `country` page
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Step 4
 
-### `npm run eject`
+- Set up all the redux boilerblate for the project
+- Everything related to redux stays in one folder: reducers, store
+- Think about what reducer you're going to make and write them accordingly
+- Move the state that contains all countries to redux store
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Step 5
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Take your time to implement the following features:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Implement a search bar to search for a country
+- Add/remove the countries to/from favorite list using Redux
+- Sort the table based on name, region, etc.
+- Maker sure the favorite list is saved in local storage to persist across refreshes of the page.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## References
 
-## Learn More
+[Demo](https://flagify.netlify.app/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Homepage:
+![homepage](media/home.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Country page:
+![country page](media/country.png)
