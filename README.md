@@ -46,8 +46,6 @@ Take your time to implement the following features:
 
 ## References
 
-[Demo](https://flagify.netlify.app/)
-
 Homepage:
 ![homepage](media/home.png)
 
