@@ -1,3 +1,5 @@
+## [Commpleted assignment](https://ulianataushan.github.io/bof-frontend-project-basic/)
+
 # Frontend React Project
 
 This is your final project for the frontend module
