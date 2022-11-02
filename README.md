@@ -1,4 +1,4 @@
-## [Commpleted assignment](https://ulianataushan.github.io/bof-frontend-project-basic/)
+## [Commpleted assignment](https://ulianataushan.github.io/bof-frontend-project-basic)
 
 # Frontend React Project
 
