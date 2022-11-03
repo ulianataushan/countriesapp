@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import { CountryItem } from "../types/country";
 
 const Countries = () => {
   const url: string = "https://restcountries.com/v3.1/all";
-  let [countrylist, setcountrylist] = useState<CountryItem[]>([]);
+  const [countrylist, setcountrylist] = useState<CountryItem[]>([]);
 
   useEffect(() => {
     fetch(url)
@@ -20,7 +22,10 @@ const Countries = () => {
   const displaycountries = countrylist.map((country) => (
     <li key={country.name.official}>
       <img src={country.flags.png} alt="flag" />
-      <p>{country.name.official}</p>
+      <br />
+      <Link to={`/countries/${country.name.official}`}>
+        {country.name.official}
+      </Link>
       <p>{country.region}</p>
       <p>{country.capital}</p>
       <p>{country.population}</p>
