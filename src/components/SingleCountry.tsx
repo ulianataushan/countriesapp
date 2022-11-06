@@ -8,7 +8,7 @@ const SingleCountry = () => {
 
   const [countrydata, setcountrydata] = useState<CountryItem[]>([]);
 
-  const countryurl = `https://restcountries.com/v2/name/${id}?fullText=true`;
+  const countryurl = `https://restcountries.com/v3/name/${id}?fullText=true`;
 
   useEffect(() => {
     fetch(countryurl)
@@ -27,7 +27,13 @@ const SingleCountry = () => {
   console.log("Countryobjectname: " + countryobject.name.official);
 
   const displaycountry = () => {
-    if (countryobject) {
+    if (countrydata.length === 0) {
+      return (
+        <>
+          <p>Loading...</p>
+        </>
+      );
+    } else if (countrydata.length > 0) {
       return (
         <>
           <img src={countryobject.flags.png} alt="flag" />
@@ -38,14 +44,9 @@ const SingleCountry = () => {
         </>
       );
     } else {
-      return (
-        <>
-          <p>Error</p>
-        </>
-      );
+      return <div>Error</div>;
     }
   };
-
   return displaycountry();
 };
 
