@@ -20,21 +20,37 @@ const Countries = () => {
   }, [url]);
 
   const displaycountries = countrylist.map((country) => (
-    <li key={country.name.official}>
-      <img src={country.flags.png} alt="flag" />
-      <br />
-      <Link to={`/countries/${country.name.official}`}>
-        {country.name.official}
-      </Link>
-      <p>{country.region}</p>
-      <p>{country.capital}</p>
-      <p>{country.population}</p>
-    </li>
+    <tr key={country.name.official}>
+      <td>
+        <img src={country.flags.png} alt="flag" />
+      </td>
+      <td>
+        <Link to={`/countries/${country.name.official}`}>
+          {country.name.official}
+        </Link>
+      </td>
+      <td>{country.region}</td>
+      <td>{country.capital}</td>
+      <td>{country.population}</td>
+      <td></td>
+    </tr>
   ));
 
   return (
     <div>
-      <ul>{countrylist.length > 0 && displaycountries}</ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Flag</th>
+            <th>Name</th>
+            <th>Region</th>
+            <th>Capital</th>
+            <th>Population</th>
+            <th>Favorites</th>
+          </tr>
+        </thead>
+        <tbody>{countrylist.length > 0 && displaycountries}</tbody>
+      </table>
     </div>
   );
 };
