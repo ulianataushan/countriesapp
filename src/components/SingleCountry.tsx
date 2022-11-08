@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { CountryItem } from "../types/country";
+import { SingleCountryItem } from "../types/country";
 
 const SingleCountry = () => {
   const { id } = useParams();
 
-  const [countrydata, setcountrydata] = useState<CountryItem[]>([]);
+  const [countrydata, setcountrydata] = useState<SingleCountryItem[]>([]);
 
   const countryurl = `https://restcountries.com/v3/name/${id}?fullText=true`;
 
@@ -18,13 +18,11 @@ const SingleCountry = () => {
         }
         return data.json();
       })
-      .then((data: CountryItem[]) => setcountrydata(data))
+      .then((data: SingleCountryItem[]) => setcountrydata(data))
       .catch((error) => console.log("Error: " + error));
   }, [countryurl]);
 
   const countryobject = countrydata[0];
-
-  console.log("Countryobjectname: " + countryobject.name.official);
 
   const displaycountry = () => {
     if (countrydata.length === 0) {
@@ -34,9 +32,10 @@ const SingleCountry = () => {
         </>
       );
     } else if (countrydata.length > 0) {
+      console.log(countryobject);
       return (
         <>
-          <img src={countryobject.flags.png} alt="flag" />
+          <img src={countryobject.flags[1]} alt="flag" />
           <p>{countryobject.name.official}</p>
           <p>{countryobject.region}</p>
           <p>{countryobject.capital}</p>

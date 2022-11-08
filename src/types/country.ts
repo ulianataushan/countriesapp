@@ -19,3 +19,12 @@ export interface CountryName {
 export interface CountryLanguage {
   [key: string]: string;
 }
+
+export interface SingleCountryItem {
+  name: CountryName;
+  region: string;
+  languages: CountryLanguage;
+  capital: string[];
+  population: number;
+  flags: string[];
+}
