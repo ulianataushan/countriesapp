@@ -1,28 +1,23 @@
-import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import { UseAppDispatch } from "../app/hooks";
+import { add } from "../redux/cartSlice";
 import { CountryItem } from "../types/country";
 
-const Countries = () => {
-  const url: string = "https://restcountries.com/v3.1/all";
-  const [countrylist, setcountrylist] = useState<CountryItem[]>([]);
+type Props = {
+  countrylist: CountryItem[];
+};
 
-  useEffect(() => {
-    fetch(url)
-      .then((data) => {
-        if (!data.ok) {
-          console.log(data);
-        }
-        return data.json();
-      })
-      .then((data: CountryItem[]) => setcountrylist(data))
-      .catch((error) => console.log("Error: " + error));
-  }, [url]);
+const Countries = ({ countrylist }: Props) => {
+  const dispatch = UseAppDispatch();
 
   const displaycountries = countrylist.map((country) => (
     <tr key={country.name.official}>
       <td>
-        <img src={country.flags.png} alt="flag" />
+        <img
+          src={country.flags.png}
+          alt={`${country.name.official} flag`}
+          width="100px"
+        />
       </td>
       <td>
         <Link to={`/countries/${country.name.official}`}>
@@ -30,9 +25,11 @@ const Countries = () => {
         </Link>
       </td>
       <td>{country.region}</td>
-      <td>{country.capital}</td>
+      <td>{country.capital?.join(", ")}</td>
       <td>{country.population}</td>
-      <td></td>
+      <td>
+        <button onClick={() => dispatch(add(country))}>♡</button>
+      </td>
     </tr>
   ));
 
@@ -49,7 +46,7 @@ const Countries = () => {
             <th>Favorites</th>
           </tr>
         </thead>
-        <tbody>{countrylist.length > 0 && displaycountries}</tbody>
+        <tbody>{displaycountries}</tbody>
       </table>
     </div>
   );

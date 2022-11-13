@@ -1,8 +1,8 @@
 export interface CountryItem {
   name: CountryName;
   region: string;
-  languages: CountryLanguage;
-  capital: string[];
+  languages?: CountryLanguage;
+  capital?: string[];
   population: number;
   flags: {
     png: string;
