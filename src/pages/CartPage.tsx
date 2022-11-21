@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppSelector } from "../app/hooks";
 
 const CartPage = () => {
-  const { countrylist } = useAppSelector((state) => state.cart);
-  const displayfavorites = countrylist.map((country) => (
+  const { cartcountrylist } = useAppSelector((state) => state.cart);
+
+  const displayfavorites = cartcountrylist.map((country) => (
     <li key={country.name.official}>
       <img src={country.flags.png} alt="flag" />
       <p>{country.name.official}</p>

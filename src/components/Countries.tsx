@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { UseAppDispatch } from "../app/hooks";
-import { add } from "../redux/cartSlice";
+import { UseAppDispatch, useAppSelector } from "../app/hooks";
+import { add, remove } from "../redux/cartSlice";
 import { CountryItem } from "../types/country";
 
 type Props = {
@@ -9,6 +9,16 @@ type Props = {
 
 const Countries = ({ countrylist }: Props) => {
   const dispatch = UseAppDispatch();
+
+  const { cartcountrylist } = useAppSelector((state) => state.cart);
+
+  const handleFavorite = (country: CountryItem) => {
+    if (cartcountrylist.includes(country)) {
+      dispatch(remove(country.name.official));
+    } else {
+      dispatch(add(country));
+    }
+  };
 
   const displaycountries = countrylist.map((country) => (
     <tr key={country.name.official}>
@@ -26,9 +36,9 @@ const Countries = ({ countrylist }: Props) => {
       </td>
       <td>{country.region}</td>
       <td>{country.capital?.join(", ")}</td>
-      <td>{country.population}</td>
+      <td>{country.population}</td>{" "}
       <td>
-        <button onClick={() => dispatch(add(country))}>♡</button>
+        <button onClick={() => handleFavorite(country)}>♡</button>
       </td>
     </tr>
   ));

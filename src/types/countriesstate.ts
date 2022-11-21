@@ -9,5 +9,5 @@ export type CountriesState = {
 };
 
 export type CartState = {
-  countrylist: CountryItem[];
+  cartcountrylist: CountryItem[];
 };

@@ -4,7 +4,7 @@ import { CartState } from "../types/countriesstate";
 import { CountryItem } from "../types/country";
 
 const initialState: CartState = {
-  countrylist: [],
+  cartcountrylist: [],
 };
 
 const cartSlice = createSlice({
@@ -12,10 +12,12 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action: PayloadAction<CountryItem>) => {
-      state.countrylist.push(action.payload);
+      if (!state.cartcountrylist.includes(action.payload)) {
+        state.cartcountrylist.push(action.payload);
+      }
     },
     remove: (state, action: PayloadAction<string>) => {
-      state.countrylist = state.countrylist.filter(
+      state.cartcountrylist = state.cartcountrylist.filter(
         (country) => country.name.official !== action.payload
       );
     },
