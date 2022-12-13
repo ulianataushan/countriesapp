@@ -4,17 +4,17 @@ import { UseAppDispatch, useAppSelector } from "../app/hooks";
 import { fetchCountry } from "../redux/countriesSlice";
 
 const SingleCountryPage = () => {
-  const { id } = useParams();
+  const { name } = useParams();
 
   const dispatch = UseAppDispatch();
 
   const { countryitem } = useAppSelector((state) => state.countrylist);
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchCountry(id));
+    if (name) {
+      dispatch(fetchCountry(name));
     }
-  }, [dispatch, id]);
+  }, [dispatch, name]);
 
   const countryobject = countryitem[0];
 

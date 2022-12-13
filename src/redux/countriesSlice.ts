@@ -15,11 +15,17 @@ const countriesSlice = createSlice({
   name: "countrylist",
   initialState,
   reducers: {
-    sort: (state, action: PayloadAction<string>) => {
-      state.countrylist = state.countrylist.sort((a, b) => (a > b ? 1 : -1));
+    sortAtoZ: (state) => {
+      state.countrylist = state.countrylist.sort((a, b) =>
+        a.name.official > b.name.official ? 1 : -1
+      );
+    },
+    sortZtoA: (state) => {
+      state.countrylist = state.countrylist.sort((a, b) =>
+        a.name.official < b.name.official ? 1 : -1
+      );
     },
     search: (state, action: PayloadAction<string>) => {
-      state.filtered = [];
       let input = action.payload;
       if (!input) {
         state.filtered = [];
@@ -71,9 +77,9 @@ export const fetchCountries = createAsyncThunk(
 
 export const fetchCountry = createAsyncThunk(
   "countryitem/fetchCountry",
-  async (id: string) => {
+  async (name: string) => {
     const response = await fetch(
-      `https://restcountries.com/v3/name/${id}?fullText=true`
+      `https://restcountries.com/v3/name/${name}?fullText=true`
     );
 
     const data: SingleCountryItem[] = await response.json();
@@ -82,4 +88,4 @@ export const fetchCountry = createAsyncThunk(
 );
 
 export default countriesSlice.reducer;
-export const { sort, search } = countriesSlice.actions;
+export const { sortAtoZ, sortZtoA, search } = countriesSlice.actions;

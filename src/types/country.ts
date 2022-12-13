@@ -9,8 +9,6 @@ export interface CountryItem {
   };
 }
 
-export type CountryCapital = string;
-
 export interface CountryName {
   common: string;
   official: string;

@@ -1,26 +1,20 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
 
 import "./App.css";
-import CartPage from "./pages/CartPage";
+import { Header } from "./components/Header";
+
+import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SingleCountryPage from "./pages/SingleCountryPage";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
     <div className="App">
-      <header>
-        <h1>Countries App</h1>
-        <Link to={"/"}>
-          <button>Home</button>
-        </Link>
-        <Link to={"/favorites"}>
-          <button>Favorites</button>
-        </Link>
-      </header>
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/countries/:id" element={<SingleCountryPage />} />
+        <Route path="/countries/:name" element={<SingleCountryPage />} />
         <Route path="/favorites" element={<CartPage />} />
       </Routes>
     </div>

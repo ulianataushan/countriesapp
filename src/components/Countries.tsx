@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+
 import { UseAppDispatch, useAppSelector } from "../app/hooks";
 import { add, remove } from "../redux/cartSlice";
 import { CountryItem } from "../types/country";
 
-type Props = {
+interface Props {
   countrylist: CountryItem[];
-};
+}
 
 const Countries = ({ countrylist }: Props) => {
   const dispatch = UseAppDispatch();
@@ -13,7 +14,11 @@ const Countries = ({ countrylist }: Props) => {
   const { cartcountrylist } = useAppSelector((state) => state.cart);
 
   const handleFavorite = (country: CountryItem) => {
-    if (cartcountrylist.includes(country)) {
+    if (
+      cartcountrylist.find(
+        (item) => item.name.official === country.name.official
+      )
+    ) {
       dispatch(remove(country.name.official));
     } else {
       dispatch(add(country));
