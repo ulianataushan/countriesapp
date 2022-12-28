@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+
+import { Card, Typography } from "@mui/material";
+
 import { UseAppDispatch, useAppSelector } from "../app/hooks";
 import { fetchCountry } from "../redux/countriesSlice";
 
@@ -27,14 +30,38 @@ const SingleCountryPage = () => {
       );
     }
 
-    return (
+    const card = (
       <>
         <img src={countryobject.flags[1]} alt="flag" />
-        <p>{countryobject.name.official}</p>
-        <p>{countryobject.region}</p>
-        <p>{countryobject.capital}</p>
-        <p>{countryobject.population}</p>
+        <Typography component="p" sx={{ m: 1, fontWeight: "bold" }}>
+          {countryobject.name.official}
+        </Typography>
+        <Typography component="p" sx={{ fontWeight: "meduim" }}>
+          Region: {countryobject.region}
+        </Typography>
+        <Typography component="p" sx={{ fontWeight: "meduim" }}>
+          Capital: {countryobject.capital}
+        </Typography>
+        <Typography component="p" sx={{ fontWeight: "meduim" }}>
+          Population:{countryobject.population}
+        </Typography>
       </>
+    );
+
+    return (
+      <Card
+        variant="outlined"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          p: 5,
+          m: 10,
+        }}
+      >
+        {card}
+      </Card>
     );
   };
   return displaycountry();

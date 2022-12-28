@@ -1,3 +1,4 @@
+import { List } from "@mui/material";
 import { useAppSelector } from "../app/hooks";
 import { FavoriteCountry } from "../components/FavoriteCountry";
 
@@ -5,13 +6,16 @@ const CartPage = () => {
   const { cartcountrylist } = useAppSelector((state) => state.cart);
 
   return (
-    <div>
-      <ul>
-        {cartcountrylist.map((country) => (
-          <FavoriteCountry country={country} />
-        ))}
-      </ul>
-    </div>
+    <List
+      sx={{
+        width: "100%",
+        bgcolor: "background.paper",
+      }}
+    >
+      {cartcountrylist.map((country) => (
+        <FavoriteCountry country={country} />
+      ))}
+    </List>
   );
 };
 
