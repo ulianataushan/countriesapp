@@ -1,17 +1,6 @@
-## [Commpleted assignment](https://ulianataushan.github.io/bof-frontend-project-basic)
-
 # Frontend React Project
 
-This is your final project for the frontend module
-
 ## Instructions
-
-### General
-
-Fork this repo, then clone the **fork** to your machine and start working on it. You can open a pull request as soon as possible (no need to wait until finished)
-For styling, you can use whatever css solution you want: css, scss, Material UI, etc.
-You need to install the css library yourself.
-
 ### Step 1
 
 - Fetch all the countries and return the data from [countries APIs](https://restcountries.com/). Display the data on the screen
