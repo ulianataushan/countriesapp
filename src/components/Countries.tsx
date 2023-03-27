@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { UseAppDispatch, useAppSelector } from "../app/hooks";
-
 import {
   IconButton,
   Paper,
@@ -10,14 +8,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
+import { UseAppDispatch, useAppSelector } from "../app/hooks";
+import { sortByName } from "../redux/countriesSlice";
 import { add, remove } from "../redux/cartSlice";
 import { CountryItem } from "../types/country";
-import { sortAtoZ } from "../redux/countriesSlice";
-import Typography from "@mui/material/Typography";
 
 interface Props {
   countrylist: CountryItem[];
@@ -28,59 +28,68 @@ const Countries = ({ countrylist }: Props) => {
 
   const { cartcountrylist } = useAppSelector((state) => state.cart);
 
+  const formatThousands = (number: number) =>
+    number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  const sortCountries = () => {
+    dispatch(sortByName());
+  };
+
+  const liked = (country: CountryItem) => cartcountrylist.includes(country);
+
   const handleFavorite = (country: CountryItem) => {
-    if (
-      cartcountrylist.find(
-        (item) => item.name.official === country.name.official
-      )
-    ) {
+    if (liked(country)) {
       dispatch(remove(country.name.official));
     } else {
       dispatch(add(country));
     }
   };
 
-  const sortCountries = () => {
-    dispatch(sortAtoZ());
-  };
-
   const displaycountries = countrylist.map((country) => (
     <TableRow key={country.name.official}>
       <TableCell>
-        <img
-          src={country.flags.png}
-          alt={`${country.name.official} flag`}
-          width="100px"
-        />
+        <Link to={`/countries/${country.name.official}`}>
+          <img
+            src={country.flags.png}
+            alt={`${country.name.official} flag`}
+            width="100px"
+            height="70px"
+          />
+        </Link>
       </TableCell>
       <TableCell>
-        <Link to={`/countries/${country.name.official}`}>
-          <Typography sx={{ m: 1, fontWeight: "bold" }}>
+        <Link
+          to={`/countries/${country.name.official}`}
+          style={{ textDecoration: "none" }}
+        >
+          <Typography color="primary" sx={{ m: 1 }}>
             {country.name.official}
           </Typography>
         </Link>
       </TableCell>
-      <TableCell>{country.region}</TableCell>
       <TableCell>{country.capital?.join(", ")}</TableCell>
-      <TableCell>{country.population}</TableCell>{" "}
+      <TableCell>{formatThousands(country.area)} km²</TableCell>
       <TableCell>
-        <IconButton color="secondary" onClick={() => handleFavorite(country)}>
-          <FavoriteIcon />
+        <IconButton color="primary" onClick={() => handleFavorite(country)}>
+          {liked(country) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
       </TableCell>
     </TableRow>
   ));
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+    <Paper sx={{ pt: 10, pl: 20, pr: 20, background: "#111111" }}>
       <TableContainer>
-        <Table stickyHeader aria-label="sticky table">
+        <Table>
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: "bold" }}>Flag</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>
-                Name
+              <TableCell>FLAG</TableCell>
+              <TableCell>
+                NAME
                 <IconButton
+                  color="primary"
+                  size="small"
+                  sx={{ ml: 1 }}
                   onClick={() => {
                     sortCountries();
                   }}
@@ -88,10 +97,9 @@ const Countries = ({ countrylist }: Props) => {
                   <SortByAlphaIcon />
                 </IconButton>
               </TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Region</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Capital</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Population</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Favorites</TableCell>
+              <TableCell>CAPITAL</TableCell>
+              <TableCell width="20%">AREA</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>{displaycountries}</TableBody>

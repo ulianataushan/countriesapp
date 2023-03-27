@@ -1,6 +1,7 @@
 import { List } from "@mui/material";
-import { useAppSelector } from "../app/hooks";
+
 import { FavoriteCountry } from "../components/FavoriteCountry";
+import { useAppSelector } from "../app/hooks";
 
 const CartPage = () => {
   const { cartcountrylist } = useAppSelector((state) => state.cart);
@@ -9,7 +10,7 @@ const CartPage = () => {
     <List
       sx={{
         width: "100%",
-        bgcolor: "background.paper",
+        bgcolor: "#111111",
       }}
     >
       {cartcountrylist.map((country) => (

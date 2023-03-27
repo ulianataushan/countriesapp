@@ -1,7 +1,18 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { Card, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CircularProgress,
+  Link,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 
 import { UseAppDispatch, useAppSelector } from "../app/hooks";
 import { fetchCountry } from "../redux/countriesSlice";
@@ -24,27 +35,79 @@ const SingleCountryPage = () => {
   const displaycountry = () => {
     if (countryitem.length === 0) {
       return (
-        <>
-          <p>Loading...</p>
-        </>
+        <Box
+          sx={{
+            pt: 50,
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress />
+        </Box>
       );
     }
 
+    const formatThousands = (number: number) =>
+      number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
     const card = (
       <>
-        <img src={countryobject.flags[1]} alt="flag" />
-        <Typography component="p" sx={{ m: 1, fontWeight: "bold" }}>
-          {countryobject.name.official}
-        </Typography>
-        <Typography component="p" sx={{ fontWeight: "meduim" }}>
-          Region: {countryobject.region}
-        </Typography>
-        <Typography component="p" sx={{ fontWeight: "meduim" }}>
-          Capital: {countryobject.capital}
-        </Typography>
-        <Typography component="p" sx={{ fontWeight: "meduim" }}>
-          Population:{countryobject.population}
-        </Typography>
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          width="100%"
+        >
+          <Typography fontSize={30}>{countryobject.name.official}</Typography>
+          <Link fontSize={25} href={countryobject.maps.googleMaps}>
+            Visit →
+          </Link>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          width="100%"
+          gap={10}
+        >
+          <Box
+            component="img"
+            sx={{
+              width: 900,
+              mt: 5,
+            }}
+            alt="flag"
+            src={countryobject.flags[1]}
+          />
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>Capital</TableCell>
+                <TableCell>{countryobject.capital?.join(", ")}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Region</TableCell>
+                <TableCell>{countryobject.region}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Area</TableCell>
+                <TableCell>{formatThousands(countryobject.area)} km²</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Population</TableCell>
+                <TableCell>
+                  {formatThousands(countryobject.population)}
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </Box>
       </>
     );
 
@@ -52,12 +115,14 @@ const SingleCountryPage = () => {
       <Card
         variant="outlined"
         sx={{
+          background: "#111111",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          ml: 17,
+          mr: 17,
           p: 5,
-          m: 10,
         }}
       >
         {card}

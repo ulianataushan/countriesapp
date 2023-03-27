@@ -1,3 +1,6 @@
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+
 import { useAppSelector } from "../app/hooks";
 import Countries from "../components/Countries";
 
@@ -6,14 +9,22 @@ const HomePage = () => {
     (state) => state.countrylist
   );
 
-  let renderedCountries = filtered.length > 0 ? filtered : countrylist;
+  let renderedcountries = filtered.length > 0 ? filtered : countrylist;
 
   return (
     <div>
       {loading ? (
-        <h1>Loading...</h1>
+        <Box
+          sx={{
+            pt: 50,
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress />
+        </Box>
       ) : (
-        <Countries countrylist={renderedCountries} />
+        <Countries countrylist={renderedcountries} />
       )}
     </div>
   );

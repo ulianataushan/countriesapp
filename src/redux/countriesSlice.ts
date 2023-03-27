@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { CountriesState } from "../types/countriesstate";
 import { CountryItem, SingleCountryItem } from "../types/country";
+import { CountriesState } from "../types/countriesstate";
 
 const initialState: CountriesState = {
   countrylist: [],
@@ -11,19 +11,23 @@ const initialState: CountriesState = {
   countryitem: [],
 };
 
+let order = false;
+
 const countriesSlice = createSlice({
   name: "countrylist",
   initialState,
   reducers: {
-    sortAtoZ: (state) => {
-      state.countrylist = state.countrylist.sort((a, b) =>
-        a.name.official > b.name.official ? 1 : -1
-      );
-    },
-    sortZtoA: (state) => {
-      state.countrylist = state.countrylist.sort((a, b) =>
-        a.name.official < b.name.official ? 1 : -1
-      );
+    sortByName: (state) => {
+      if (order) {
+        state.countrylist.sort((a, b) =>
+          a.name.official < b.name.official ? 1 : -1
+        );
+      } else {
+        state.countrylist.sort((a, b) =>
+          a.name.official > b.name.official ? 1 : -1
+        );
+      }
+      order = !order;
     },
     search: (state, action: PayloadAction<string>) => {
       let input = action.payload;
@@ -44,11 +48,11 @@ const countriesSlice = createSlice({
       state.loading = false;
       state.error = false;
     });
-    builder.addCase(fetchCountries.rejected, (state, action) => {
+    builder.addCase(fetchCountries.rejected, (state) => {
       state.error = true;
       state.countrylist = [];
     });
-    builder.addCase(fetchCountries.pending, (state, action) => {
+    builder.addCase(fetchCountries.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(fetchCountry.fulfilled, (state, action) => {
@@ -56,11 +60,11 @@ const countriesSlice = createSlice({
       state.loading = false;
       state.error = false;
     });
-    builder.addCase(fetchCountry.rejected, (state, action) => {
+    builder.addCase(fetchCountry.rejected, (state) => {
       state.error = true;
       state.countryitem = [];
     });
-    builder.addCase(fetchCountry.pending, (state, action) => {
+    builder.addCase(fetchCountry.pending, (state) => {
       state.loading = true;
     });
   },
@@ -87,5 +91,6 @@ export const fetchCountry = createAsyncThunk(
   }
 );
 
-export default countriesSlice.reducer;
-export const { sortAtoZ, sortZtoA, search } = countriesSlice.actions;
+const countriesReducer = countriesSlice.reducer;
+export default countriesReducer;
+export const { sortByName, search } = countriesSlice.actions;
