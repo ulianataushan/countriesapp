@@ -1,4 +1,4 @@
-# [Countries App]()
+# [Countries App](countriesapp-rose.vercel.app/)
 
 The app contains information about 250 countries fetched from an [API endpoint](https://restcountries.com/).
 
@@ -15,4 +15,4 @@ The project was built with a purpose of practicing the technologies that I learn
 - Redux Toolkit
 - Material-UI
 
-### Follow [this link]() to check out the app.
+### Follow [this link](countriesapp-rose.vercel.app/) to check out the app.
